@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+		<title>xwqin的网站</title>
+		<link rel="shortcut icon" href="/xgz.ico">
+		<link rel="stylesheet" href="/search.css">
+		<style>
+			.notice{
+				width: 60%;
+				display: inline-block;
+				border-style: dotted;
+				border-width: 4px;
+			}
+		</style>
+	</head>
+	<body style="background-color: black;text-align: center; color: #fff;">
+		<h1>xwqin的图库</h1>
+		<h3>Xwqin's Own Album(from Phone & Camera)</h4>
+		<div class="search-container">
+			<div class="search-box">
+				<input type="text" id="search-input" placeholder="输入关键词搜索相册...">
+				<button id="search-button">模糊搜索</button>
+			</div>
+			<div id="search-results" class="search-results" style="display: none;"></div>
+		</div>
+		<h4>关键词一览（点击自动搜索）：</h4>
+		<div class="keyword-container">
+			<div class="keyword-box" data="交通运输">交通运输</div>
+			<div class="keyword-box" data="轨道交通">轨道交通</div>
+			<div class="keyword-box" data="航空航天">航空航天</div>
+			<div class="keyword-box" data="地面公交">地面公交</div>
+			<div class="keyword-box" data="望京站">望京站</div>
+			<div class="keyword-box" data="北京棉纺局专用线">北京棉纺局专用线</div>
+			<div class="keyword-box" data="高家园站">高家园站</div>
+			<div class="keyword-box" data="海淀机场">海淀机场</div>
+			<div class="keyword-box" data="航天桥西公交场">航天桥西公交场</div>
+			<div class="keyword-box" data="巢湖市">巢湖市</div>
+			<div class="keyword-box" data="探访">探访</div>
+			<div class="keyword-box" data="张辛站">张辛站</div>
+			<div class="keyword-box" data="798艺术区专用线">798艺术区专用线</div>
+			<div class="keyword-box" data="纺织仓库站*">纺织仓库站*</div>
+			<div class="keyword-box" data="南苑机场">南苑机场</div>
+			<div class="keyword-box" data="前门公交枢纽">前门公交枢纽</div>
+			<div class="keyword-box" data="八达岭长城">八达岭长城</div>
+			<div class="keyword-box" data="暴走">暴走</div>
+			<div class="keyword-box" data="衙门口站">衙门口站</div>
+			<div class="keyword-box" data="大南铁路">大南铁路</div>
+			<div class="keyword-box" data="北京客运段">北京客运段</div>
+			<div class="keyword-box" data="南郊机场">南郊机场</div>
+			<div class="keyword-box" data="清河公交枢纽">清河公交枢纽</div>
+			<div class="keyword-box" data="郎园station">郎园station</div>
+			<div class="keyword-box" data="拍车">拍车</div>
+			<div class="keyword-box" data="北京丰台站">北京丰台站</div>
+			<div class="keyword-box" data="京苑铁路">京苑铁路</div>
+			<div class="keyword-box" data="北京机务段">北京机务段</div>
+			<div class="keyword-box" data="大安山矿">大安山矿</div>
+			<div class="keyword-box" data="运转">运转</div>
+			<div class="keyword-box" data="枣强站">枣强站</div>
+			<div class="keyword-box" data="环行铁道">环行铁道</div>
+			<div class="keyword-box" data="万芳桥">万芳桥</div>
+			<div class="keyword-box" data="人民大学附属中学亦庄新城学校">人民大学附属中学亦庄新城学校</div>
+			<div class="keyword-box" data="出游">出游</div>
+			<div class="keyword-box" data="临清站">临清站</div>
+			<div class="keyword-box" data="西北环线">西北环线</div>
+			<div class="keyword-box" data="莲花桥">莲花桥</div>
+			<div class="keyword-box" data="通州万达">通州万达</div>
+			<div class="keyword-box" data="节庆活动">节庆活动</div>
+			<div class="keyword-box" data="合肥站">合肥站</div>
+			<div class="keyword-box" data="东北环线">东北环线</div>
+			<div class="keyword-box" data="东便门天桥">东便门天桥</div>
+			<div class="keyword-box" data="中信大厦">中信大厦</div>
+			<div class="keyword-box" data="运动会">运动会</div>
+			<div class="keyword-box" data="巢湖站">巢湖站</div>
+			<div class="keyword-box" data="高井支线">高井支线</div>
+			<div class="keyword-box" data="翠林小区天桥">翠林小区天桥</div>
+			<div class="keyword-box" data="正阳门">正阳门</div>
+			<div class="keyword-box" data="巢湖东站">巢湖东站</div>
+			<div class="keyword-box" data="京九铁路">京九铁路</div>
+			<div class="keyword-box" data="二七轨交">二七轨交</div>
+			<div class="keyword-box" data="石景山游乐园（八角游乐园）">石景山游乐园（八角游乐园）</div>
+			<div class="keyword-box" data="济南西站">济南西站</div>
+			<div class="keyword-box" data="京沪铁路">京沪铁路</div>
+			<div class="keyword-box" data="中车北京总公司">中车北京总公司</div>
+			<div class="keyword-box" data="海淀黄庄">海淀黄庄</div>
+			<div class="keyword-box" data="北京南站">北京南站</div>
+			<div class="keyword-box" data="京石客专">京石客专</div>
+			<div class="keyword-box" data="福寿岭站">福寿岭站</div>
+			<div class="keyword-box" data="格兰云天酒店大厦">格兰云天酒店大厦</div>
+			<div class="keyword-box" data="乔庄东站">乔庄东站</div>
+			<div class="keyword-box" data="西长铁路">西长铁路</div>
+			<div class="keyword-box" data="中国铁道博物馆">中国铁道博物馆</div>
+			<div class="keyword-box" data="清河之洲">清河之洲</div>
+			<div class="keyword-box" data="昌平北站">昌平北站</div>
+			<div class="keyword-box" data="京通铁路">京通铁路</div>
+			<div class="keyword-box" data="东四十条站">东四十条站</div>
+			<div class="keyword-box" data="御林西苑">御林西苑</div>
+			<div class="keyword-box" data="礼贤站">礼贤站</div>
+			<div class="keyword-box" data="丰双铁路（南环铁路）">丰双铁路（南环铁路）</div>
+			<div class="keyword-box" data="朱纺北站">朱纺北站</div>
+			<div class="keyword-box" data="智选假日酒店">智选假日酒店</div>
+			<div class="keyword-box" data="房山站">房山站</div>
+			<div class="keyword-box" data="北京地铁13号线">北京地铁13号线</div>
+			<div class="keyword-box" data="丽泽商务区站">丽泽商务区站</div>
+			<div class="keyword-box" data="天安门">天安门</div>
+			<div class="keyword-box" data="石景山站">石景山站</div>
+			<div class="keyword-box" data="北京地铁3号线">北京地铁3号线</div>
+			<div class="keyword-box" data="望京西交通枢纽">望京西交通枢纽</div>
+			<div class="keyword-box" data="北京北站">北京北站</div>
+			<div class="keyword-box" data="北京地铁12号线">北京地铁12号线</div>
+			<div class="keyword-box" data="马坊站">马坊站</div>
+			<div class="keyword-box" data="黄花城水长城">黄花城水长城</div>
+			<div class="keyword-box" data="八达岭长城站">八达岭长城站</div>
+			<div class="keyword-box" data="青岛地铁">青岛地铁</div>
+			<div class="keyword-box" data="北京西车务段">北京西车务段</div>
+			<div class="keyword-box" data="九渡河">九渡河</div>
+			<div class="keyword-box" data="清河站">清河站</div>
+			<div class="keyword-box" data="盐青铁路">盐青铁路</div>
+			<div class="keyword-box" data="太平湖车辆段">太平湖车辆段</div>
+			<div class="keyword-box" data="中国科学技术馆">中国科学技术馆</div>
+			<div class="keyword-box" data="百子湾站">百子湾站</div>
+			<div class="keyword-box" data="大红门站*">大红门站*</div>
+			<div class="keyword-box" data="南苑湿地森林公园">南苑湿地森林公园</div>
+			<div class="keyword-box" data="北京东站">北京东站</div>
+			<div class="keyword-box" data="小火车站*">小火车站*</div>
+			<div class="keyword-box" data="北京一零一中温泉校区">北京一零一中温泉校区</div>
+			<div class="keyword-box" data="北京西站">北京西站</div>
+			<div class="keyword-box" data="北京动车段">北京动车段</div>
+			<div class="keyword-box" data="清华大学附属中学">清华大学附属中学</div>
+			<div class="keyword-box" data="北京南站">北京南站</div>
+			<div class="keyword-box" data="人民大学附属中学">人民大学附属中学</div>
+			<div class="keyword-box" data="北京站">北京站</div>
+			<div class="keyword-box" data="双榆树中心小学">双榆树中心小学</div>
+			<div class="keyword-box" data="大红门站">大红门站</div>
+			<div class="keyword-box" data="北京一零一中双榆树校区">北京一零一中双榆树校区</div>
+			<div class="keyword-box" data="小红门站">小红门站</div>
+			<div class="keyword-box" data="北京十一学校龙樾实验中学">北京十一学校龙樾实验中学</div>
+			<div class="keyword-box" data="黄村站">黄村站</div>
+			<div class="keyword-box" data="清华大学附属小学清河分校">清华大学附属小学清河分校</div>
+			<div class="keyword-box" data="北京大兴站">北京大兴站</div>
+			<div class="keyword-box" data="北京市清河中学">北京市清河中学</div>
+			<div class="keyword-box" data="下庄站">下庄站</div>
+			<div class="keyword-box" data="人民大学附属中学朝阳学校">人民大学附属中学朝阳学校</div>
+			<div class="keyword-box" data="清河站">清河站</div>
+			<div class="keyword-box" data="人民大学附属中学通州校区">人民大学附属中学通州校区</div>
+			<div class="keyword-box" data="石景山南站">石景山南站</div>
+			<div class="keyword-box" data="人民大学附属中学西山学校">人民大学附属中学西山学校</div>
+			<div class="keyword-box" data="牛栏山站">牛栏山站</div>
+			<div class="keyword-box" data="北京十一晋元中学">北京十一晋元中学</div>
+			<div class="keyword-box" data="顺义站">顺义站</div>
+			<div class="keyword-box" data="北京中法实验学校">北京中法实验学校</div>
+			<div class="keyword-box" data="通州西站">通州西站</div>
+			<div class="keyword-box" data="中央电视台总部大楼">中央电视台总部大楼</div>
+			<div class="keyword-box" data="南苑站">南苑站</div>
+			<div class="keyword-box" data="北京中轴线">北京中轴线</div>
+			<div class="keyword-box" data="后章村站">后章村站</div>
+			<div class="keyword-box" data="永定门城楼">永定门城楼</div>
+			<div class="keyword-box" data="寨口站">寨口站</div>
+			<div class="keyword-box" data="前门大街">前门大街</div>
+			<div class="keyword-box" data="军庄站">军庄站</div>
+			<div class="keyword-box" data="景山公园">景山公园</div>
+			<div class="keyword-box" data="三家店站">三家店站</div>
+			<div class="keyword-box" data="钟鼓楼广场">钟鼓楼广场</div>
+			<div class="keyword-box" data="西枣林站">西枣林站</div>
+			<div class="keyword-box" data="自行车专用路">自行车专用路</div>
+			<div class="keyword-box" data="安定站">安定站</div>
+			<div class="keyword-box" data="青岛市">青岛市</div>
+			<div class="keyword-box" data="小葆台站">小葆台站</div>
+			<div class="keyword-box" data="燕郊站">燕郊站</div>
+			<div class="keyword-box" data="亦庄站">亦庄站</div>
+			<div class="keyword-box" data="黄土店站">黄土店站</div>
+			<div class="keyword-box" data="青岛站">青岛站</div>
+			<div class="keyword-box" data="青岛西站">青岛西站</div>
+			<div class="keyword-box" data="青岛北站">青岛北站</div>
+			<div class="keyword-box" data="京广铁路">京广铁路</div>
+			<div class="keyword-box" data="大安山矿窄轨铁路">大安山矿窄轨铁路</div>
+			<div class="keyword-box" data="北京地铁22号线">北京地铁22号线</div>
+			<div class="keyword-box" data="红岛站">红岛站</div>
+			<div class="keyword-box" data=""></div>
+		</div>
+		<br><br>
+		<div class="notice">
+			<h4>观前提示</h4>
+			<p>请谅解部分图像模糊、画质低或收音差，毕竟录制这些影像资料的设备源远流长，博大精深…
+			<br>
+			每个相册均进行了分离处理，依据展现主体仅保留相关图像
+			<br>
+			为保安全，部分敏感相册设置了阅览密码
+			<br>
+			以上行为给您查询带来的不便深表歉意
+			<br>
+			侵权请联系删除——wechat:xwqin2022
+			</p>
+		</div>
+		<!--这里应该没人吧：
+		一个人写两个网站？！
+		liyy：
+		那个**，给任务应的那叫一个痛快，然后直接玩失踪
+		群里回信息真是勤，但除非被我抓现行不然绝对不回我，问也不说话
+		我现在是进退两难，写也不是，不写也不是
+		还指望找他干项目呢，到最后我自己为爱发电
+		faker_vs_bin.png（聊天记录，学习一下微信的程序员）（已删除，大致为上述扯皮）
+		25/07/29 v
+		终于写了liyy
+		上午还说晚上给
+		晚上又失踪了
+		白高兴一场
+		25/08/02 v
+		一周过完了，持续失踪
+		说话不算话，屁股当喇叭
+		
+		项目本身：
+		两千多张照片怎么分啊
+		房九跨线车算25还是9啊
+		朱辛庄昌八算27还是8呀
+		8站台的2导视牌算2还算8啊
+		西苑的老线路图算4还是16还是都不算呢
+		出游路上的算风景还是出游啊！！！
+		操蛋了，主题分类直接断送了我今后的运维之路
+		顺带一提，前后端真不是一个量级的，一个费脑，一个累心（顺序自分）
+		-->
+		<script>
+			const searchData = [
+				// 分类标准：
+				// 相册 - 依照图片主体展现内容
+				// 命名规范：
+				// 单一类型事件：行为（探、展、游、纪…）+ 事件或地点（多个使用‘&’连接）
+				// 多种类型事件：多个单一类型事件使用‘，’连接
+				{
+					title: "北京中轴线一日游",
+					url: "/album/北京中轴线一日游/",
+					keywords: "#人民大学附属中学亦庄新城学校 正阳门 北京中轴线 永定门城楼 前门大街 景山公园 钟鼓楼广场 出游 暴走",
+					content: "4月16日，人大附中亦庄新城学校初一年级12个班级学子，以北京中轴线为经，以六百年光阴为纬，开启了一场沉浸式文化织锦之旅。从永定门的晨露未晞，到钟鼓楼的暮云初染，少年们用脚步丈量时光褶皱，以指尖触碰文明脉搏，在古都的春色里谱写了一曲青春与历史的交响。"
+				},
+				{
+					title: "纪附小最后的回忆",
+					url: "/album/纪附小最后的回忆/",
+					keywords: "#出游 清华大学附属小学清河分校",
+					content: "毕业前的那次去河北的集体出游，成为了附小给予我最后的回忆"
+				},
+				{
+					title: "探中车长客二七轨交",
+					url: "/album/探中车长客二七轨交/",
+					keywords: "#交通运输 轨道交通 二七轨交 京广铁路 北京地铁22号线 探访 拍车",
+					content: "探访北京中车长客二七轨道装备有限公司，见两辆22号线新车"
+				},
+				{
+					title: "游大安山矿，寻窄轨矿车",
+					url: "/album/游大安山矿，寻窄轨矿车/",
+					keywords: "#交通运输 轨道交通 大安山矿窄轨铁路 大安山矿 探访 运转",
+					content: "前往北京市房山区探访大安山矿窄轨铁路"
+				},
+				{
+					title: "探北京地铁马坊站",
+					url: "/album/探北京地铁马坊站/",
+					keywords: "#交通运输 轨道交通 北京地铁 探访",
+					content: "探访北京地铁平谷线（22号线）第一卷王——马坊站"
+				},
+				{
+					title: "探丰双铁路及北京动车段",
+					url: "/album/探丰双铁路及北京动车段/",
+					keywords: "#交通运输 轨道交通 百子湾站 小红门站 大红门站 小葆台站 丰双铁路（南环铁路） 北京动车段 探访 拍车",
+					content: "探访丰双铁路的百子湾、小红门、大红门、小葆台四站，以及北京动车段和广渠路废弃机车与车厢存放线"
+				},
+				{
+					title: "探海淀、南苑、南郊三机场",
+					url: "/album/探海淀、南苑、南郊三机场/",
+					keywords: "#",
+					content: ""
+				},
+				{
+					title: "览中国科学技术馆",
+					url: "/album/览中国科学技术馆/",
+					keywords: "#中国科学技术馆",
+					content: ""
+				},
+				{
+					title: "环形铁道&中国铁道博物馆",
+					url: "/album/环形铁道&中国铁道博物馆/",
+					keywords: "#",
+					content: ""
+				},
+				{
+					title: "人亦第四届运动会",
+					url: "/album/人亦第四届运动会/",
+					keywords: "#",
+					content: ""
+				},
+				{
+					title: "人亦栩智杯阅读节",
+					url: "/album/人亦栩智杯阅读节/",
+					keywords: "#",
+					content: ""
+				},
+				{
+					title: "",
+					url: "/album//",
+					keywords: "#",
+					content: ""
+				},
+				{
+					title: "",
+					url: "/album//",
+					keywords: "#",
+					content: ""
+				}
+			];
+			const searchInput = document.getElementById('search-input');
+			const searchButton = document.getElementById('search-button');
+			const searchResults = document.getElementById('search-results');
+			function performSearch() {
+				const query = searchInput.value.trim().toLowerCase();
+				if (!query) {
+					alert('请输入搜索关键词');
+					return;
+				}
+				const keywords = query.split(' ').filter(k => k.length > 0);
+				const results = searchData.filter(item => {
+					const allText = (
+						item.title.toLowerCase() + ' ' + 
+						item.keywords.toLowerCase() + ' ' + 
+						item.content.toLowerCase()
+					);
+					return keywords.some(keyword => allText.includes(keyword));
+				});
+				displayResults(results, keywords);
+			}
+			function displayResults(results, keywords) {
+				searchResults.innerHTML = '';
+				if (results.length === 0) {
+					searchResults.style.display = 'block';
+					searchResults.innerHTML = '<div class="no-results">没有找到匹配的结果。</div>';
+					return;
+				} 
+				results.forEach(item => {
+					const resultElement = document.createElement('div');
+					resultElement.className = 'result-item';
+					let highlightedContent = item.content;
+					keywords.forEach(keyword => {
+						const regex = new RegExp(keyword, 'gi');
+						highlightedContent = highlightedContent.replace(regex, match => 
+							`<span style="background-color: yellow;">${match}</span>`
+						);
+					});
+					resultElement.innerHTML = `
+						<div class="result-title"><a href="${item.url}">${item.title}</a></div>
+						<div class="result-snippet">${highlightedContent}</div>
+					`;
+					searchResults.appendChild(resultElement);
+				});
+				searchResults.style.display = 'block';
+			}
+			searchButton.addEventListener('click', performSearch);
+			searchInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSearch(); } });
+			document.querySelectorAll('.keyword-box').forEach(tag => {
+				tag.addEventListener('click', function() {
+					const keyword = this.getAttribute('data');
+					searchInput.value = keyword;
+					performSearch();
+				});
+			});
+		</script>
+	</body>
+</html>

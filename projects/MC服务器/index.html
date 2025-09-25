@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+		<title>xwqin的网站</title>
+		<link rel="shortcut icon" href="/xgz.ico">
+		<link rel="stylesheet" href="/projects/timeline.css"/>
+		<style type="text/css">
+			.box {
+				width: 70%;
+				display: inline-block;
+				border-radius: 10px;
+				background-color: #393939;
+				padding: 20px;
+			}
+			.inbox {
+				width: 90%;
+				display: inline-block;
+				border-radius: 6px;
+				background-color: #6f6f6f;
+				padding: 5px 10px 10px 10px;
+			}
+			.table-container {
+			    background: white;
+			    border-radius: 8px;
+			    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			    overflow: hidden;
+			}
+			table {
+			    width: 95%;
+			    border-collapse: collapse;
+			}
+			th, td {
+			    padding: 12px 15px;
+			    text-align: left;
+			    border-bottom: 1px solid #ddd;
+			}
+			th {
+			    background-color: #4caf50;
+			    color: white;
+			    font-weight: 600;
+			}
+			tr:hover { background-color: #f1f8e9; }
+			.mod-name { font-weight: 500; }
+			.mod-name a {
+			    color: #1b5e20;
+			    text-decoration: none;
+			}
+			.mod-name a:hover { text-decoration: underline; }
+			.mod-version {
+			    color: #666;
+			    font-family: monospace;
+			}
+			.mod-categories {
+			    display: flex;
+			    flex-wrap: wrap;
+			    gap: 5px;
+			}
+			.category-tag {
+			    background: #e8f5e9;
+			    padding: 3px 8px;
+			    border-radius: 4px;
+			    font-size: 0.85em;
+			    color: #2e7d32;
+			}
+			@media (max-width: 768px) {
+			    th, td { padding: 8px 10px; }
+			    .table-container { overflow-x: auto; }
+			}
+		</style>
+	</head>
+	<body style="background-color: black; color: #fff; text-align: center;">
+		<button onclick="history.back()" style="position: fixed; top: 20px; right: 20px; background-color: #55aa7f; border: none; color: #fff; border-radius: 5px; font-size: 20px;">返回&#8618;</button>
+		<h1>MC服务器</h1>
+		<div class="box">
+			<div class="inbox">
+				<h3>服内实景</h3>
+				<img src="1.png" width="33%"/>
+				<img src="2.png" width="33%"/>
+				<img src="3.png" width="33%"/>
+				<img src="4.png" width="33%"/>
+				<img src="5.png" width="33%"/>
+				<img src="6.png" width="33%"/>
+			</div>
+			<br><br>
+			<div class="inbox">
+				<h3>演变过程</h3>
+				<img id="timeline-img" src="7.png" />
+				<br><br><br>
+				<div class="timeline-line"></div>
+				<div class="timeline-nodes">
+					<div class="timeline-node" data-img="7.png">
+						<div class="node-dot"></div>
+						<div class="node-date">2023.03</div>
+						<div class="node-title">现服建档仅本人私玩</div>
+					</div>
+					<div class="timeline-node" data-img="8.png">
+						<div class="node-dot"></div>
+						<div class="node-date">2024.07</div>
+						<div class="node-title">原服主cc1287建服</div>
+					</div>
+					<div class="timeline-node" data-img="9.png">
+						<div class="node-dot"></div>
+						<div class="node-date">2025.02.02</div>
+						<div class="node-title">原服完全停止服务</div>
+					</div>
+					<div class="timeline-node" data-img="10.png">
+						<div class="node-dot"></div>
+						<div class="node-date">2025.07</div>
+						<div class="node-title">原服存档移植失败<br>现服转档创建成功</div>
+					</div>
+				</div>
+				<br>
+				<p style="font-size: 20px;">2025年7月15日，随着ATERNOS网站提示启动成功，“本服务器”重获新生</p>
+				<p style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本服务器最初始建于2024年7月，彼时本人正参加本校举办的梦熊信息集训，结识了原服主cc1287（全网同名）。当时，该服务器搭建于原服主购买的网络服务器中，为纯生存服，不装配任何模组，仅使用了部分改善游戏体验的插件，向参加集训及原服主好友提供游戏服务。后本人通过资助原服主，获得了管理员权限，并使用创造模式，进行服务器建设，凭一己之力构成了本服务器的公共交通网络及基础服务设施，并搭建了<a href="#old">交通网站</a>。</p>
+				<img src="p1.png" width="24.5%"/>
+				<img src="p2.png" width="24.5%"/>
+				<img src="p3.png" width="24.5%"/>
+				<img src="p4.png" width="24.5%"/>
+				<p style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于原服主购买的服务器拥有每周自动重启自检的功能，且网络状态时常不佳，故需要其本人亲自启动或排障，但空闲时间本就不多的原服主无法及时管理，于是在数月时间的断断续续后， 2025年2月2日终于造成了服务器的疑似永久停止服务（尽管原服主最初积极解决问题，且至今仍保持社交媒体活动，但他自2月3日以来，除近期的一次短暂交涉，始终未回复我等讯息，推断是其介于该服人数稀少、维护费时费力，或迫于家长压力，终是停止了原服恢复工作）。</p>
+				<p style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2025年暑假，再次参与集训的本人基于<a href="https://aternos.org" target="_blank">aternos.org</a>，拾起了服务器的恢复工作。不幸的是，尽管原服主为服务器安装了自动保存插件，但是由于后续短暂又不连续的建设与游玩，无法及时进行大范围、全地图的保存程序，在本人与原服主联系未果后，仅找到了2024年8月的一个全地图备份。同时，无法获得世界种子号也使得未加载的区块发生了结构错误，无法正常游玩，最终本人忍痛停止了恢复工作。</p>
+				<p style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本人反复斟酌后，决定利用起本人于2023年3月创建的游玩地图，加入更多模组，进行了更多的基础设施建设提高了玩家的游玩质量，吸引了近十人的游玩观赏。2025年7月15日，如同标题所说，这个虽没有继承之处，却进行了名义遗传的“本服务器”重获新生。</p>
+			</div>
+			<br><br>
+			<div class="inbox">
+				<h3>现服务器介绍</h3>
+				
+			</div>
+			<br><br>
+			<div class="inbox">
+				<h3>原服务器回望</h3>
+				<a id="old"></a>
+				<a href="https://map-cc1287.github.io" target="_blank">交通网站</a>（点击即可查看，由于游玩人数稀少，且服务器在本人网站大规模开发过程中停止了服务，故大部分页面并未完成，望谅解）（仅线路图）。</p>
+			</div>
+		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				const nodes = document.querySelectorAll('.timeline-node');
+				const timelineImg = document.getElementById('timeline-img');
+				nodes.forEach(node => {
+					node.addEventListener('mouseenter', function() {
+						const imgUrl = this.getAttribute('data-img');
+						timelineImg.src = imgUrl;
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>模组名称</th>
+                <th>版本</th>
+                <th>类型</th>
+            </th>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/mrcrayfishs-gun-mod" target="_blank">MrCrayfish的枪 (MrCrayfish's Gun Mod)</a></td>
+				<td class="mod-version">1.3.7</td>
+				<td><div class="mod-categories"><span class="category-tag">冒险</span><span class="category-tag">支持库</span><span class="category-tag">装备</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/paladins-furniture" target="_blank">Paladin的家具 (Paladin's Furniture)</a></td>
+				<td class="mod-version">1.2.1</td>
+				<td><div class="mod-categories"><span class="category-tag">仓储</span><span class="category-tag">装饰</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/security-craft" target="_blank">安全工艺 (Security Craft)</a></td>
+				<td class="mod-version">1.9.8</td>
+				<td><div class="mod-categories"><span class="category-tag">科技</span><span class="category-tag">冒险</span><span class="category-tag">装备</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/minecraft-transit-railway" target="_blank">我的世界铁路 (Minecraft Transit Railway)</a></td>
+				<td class="mod-version">3.2.2-hotfix-1</td>
+				<td><div class="mod-categories"><span class="category-tag">科技</span><span class="category-tag">运输</span><span class="category-tag">装饰</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/nemos-transit-expansion" target="_blank">纸板箱的交通扩展 (Nemo's Transit Expansion)</a></td>
+				<td class="mod-version">0.4.1+1.19.4</td>
+				<td><div class="mod-categories"><span class="category-tag">运输</span><span class="category-tag">装饰</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/ultimate-plane-mod" target="_blank">终极飞机 (Ultimate Plane Mod)</a></td>
+				<td class="mod-version">1.19.4-1.0.3</td>
+				<td><div class="mod-categories"><span class="category-tag">冒险</span><span class="category-tag">运输</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/ultimate-car-mod" target="_blank">终极汽车 (Ultimate Car Mod)</a></td>
+				<td class="mod-version">1.19.4-1.0.4</td>
+				<td><div class="mod-categories"><span class="category-tag">管道/物流</span><span class="category-tag">科技</span><span class="category-tag">冒险</span><span class="category-tag">农业</span><span class="category-tag">运输</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api" target="_blank">Architectury API</a></td>
+				<td class="mod-version">8.2.89</td>
+				<td><div class="mod-categories"><span class="category-tag">支持库</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config" target="_blank">Cloth Config API</a></td>
+				<td class="mod-version">10.1.105</td>
+				<td><div class="mod-categories"><span class="category-tag">支持库</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/fire-extinguisher" target="_blank">灭火器 (Fire Extinguisher)</a></td>
+				<td class="mod-version">6.3.0</td>
+				<td><div class="mod-categories"><span class="category-tag">科技</span><span class="category-tag">冒险</span><span class="category-tag">装备</span><span class="category-tag">自动化</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/framework" target="_blank">Framework</a></td>
+				<td class="mod-version">0.6.16</td>
+				<td><div class="mod-categories"><span class="category-tag">支持库</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/joban-client-mod" target="_blank">常磐装饰 (Joban Client Mod)</a></td>
+				<td class="mod-version">1.2.2</td>
+				<td><div class="mod-categories"><span class="category-tag">实用</span><span class="category-tag">装饰</span></div></td>
+			</tr>
+			<tr>
+				<td class="mod-name"><a href="https://www.curseforge.com/minecraft/mc-mods/mtr-station-decoration" target="_blank">MTR车站装饰 (MTR Station Decoration)</a></td>
+				<td class="mod-version">1.3.4-enhancement-1</td>
+				<td><div class="mod-categories"><span class="category-tag">科技</span><span class="category-tag">运输</span><span class="category-tag">装饰</span></div></td>
+			</tr>
+        </table>

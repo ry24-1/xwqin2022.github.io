@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地形等高线与体积计算工具</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .controls {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #4ca1af;
+            padding-bottom: 5px;
+        }
+        
+        .slider-container {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #4ca1af;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        button {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .visualization {
+            flex: 2;
+            min-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            height: 300px;
+        }
+        
+        .results {
+            background: #e9f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .result-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .visualization {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>地形等高线与体积计算工具</h1>
+            <p class="subtitle">生成自定义地形模型并计算不同区域的体积</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="controls">
+                <div class="control-group">
+                    <h2>地形参数</h2>
+                    
+                    <div class="slider-container">
+                        <label for="terrain-size">地形尺寸: <span id="size-value">100</span> 单位</label>
+                        <input type="range" id="terrain-size" min="50" max="200" value="100">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label for="terrain-roughness">地形粗糙度: <span id="roughness-value">5</span></label>
+                        <input type="range" id="terrain-roughness" min="1" max="10" value="5">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label for="contour-interval">等高线间距: <span id="interval-value">10</span> 单位</label>
+                        <input type="range" id="contour-interval" min="5" max="30" value="10">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h2>区域选择</h2>
+                    
+                    <div class="slider-container">
+                        <label for="area-type">区域类型</label>
+                        <select id="area-type" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                            <option value="plateau">高原</option>
+                            <option value="valley">山谷</option>
+                            <option value="hill">丘陵</option>
+                            <option value="basin">盆地</option>
+                        </select>
+                    </div>
+                    
+                    <div class="slider-container">
+                        <label for="area-size">区域大小: <span id="area-size-value">30</span>%</label>
+                        <input type="range" id="area-size" min="10" max="50" value="30">
+                    </div>
+                </div>
+                
+                <button id="generate-btn">生成地形</button>
+                <button id="calculate-btn">计算体积</button>
+            </div>
+            
+            <div class="visualization">
+                <div class="chart-container">
+                    <canvas id="contour-chart"></canvas>
+                </div>
+                
+                <div class="results">
+                    <h2>体积计算结果</h2>
+                    <div class="result-grid">
+                        <div class="result-card">
+                            <div class="result-label">高原体积</div>
+                            <div class="result-value">4,250</div>
+                            <div class="result-unit">立方米</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-label">山谷体积</div>
+                            <div class="result-value">3,180</div>
+                            <div class="result-unit">立方米</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-label">总体积</div>
+                            <div class="result-value">12,840</div>
+                            <div class="result-unit">立方米</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 地形分析与体积计算工具 | 专为工程项目设计</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化控件值显示
+        document.getElementById('terrain-size').addEventListener('input', function() {
+            document.getElementById('size-value').textContent = this.value;
+        });
+        
+        document.getElementById('terrain-roughness').addEventListener('input', function() {
+            document.getElementById('roughness-value').textContent = this.value;
+        });
+        
+        document.getElementById('contour-interval').addEventListener('input', function() {
+            document.getElementById('interval-value').textContent = this.value;
+        });
+        
+        document.getElementById('area-size').addEventListener('input', function() {
+            document.getElementById('area-size-value').textContent = this.value;
+        });
+        
+        // 生成等高线图
+        const ctx = document.getElementById('contour-chart').getContext('2d');
+        
+        // 模拟地形数据
+        function generateTerrainData() {
+            const data = [];
+            const size = 20;
+            
+            for (let x = 0; x < size; x++) {
+                const row = [];
+                for (let y = 0; y < size; y++) {
+                    // 使用Perlin噪声类似算法生成自然地形
+                    const value = Math.sin(x/size * Math.PI) * Math.cos(y/size * Math.PI) * 50 + 
+                                 Math.sin(x/3) * Math.cos(y/5) * 10 + 
+                                 Math.random() * 5;
+                    row.push(value);
+                }
+                data.push(row);
+            }
+            
+            return data;
+        }
+        
+        // 绘制等高线图
+        function drawContourChart() {
+            const terrainData = generateTerrainData();
+            
+            // 提取等高线数据
+            const contourData = {
+                labels: Array.from({length: 20}, (_, i) => i * 5),
+                datasets: [{
+                    label: '等高线地形图',
+                    data: terrainData.flat(),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    pointRadius: 0
+                }]
+            };
+            
+            new Chart(ctx, {
+                type: 'contour',
+                data: contourData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'X坐标 (米)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Y坐标 (米)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: '地形等高线图'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 初始化图表
+        drawContourChart();
+        
+        // 按钮事件
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            drawContourChart();
+            
+            // 模拟计算过程
+            document.querySelectorAll('.result-value').forEach(el => {
+                const current = parseInt(el.textContent.replace(/,/g, ''));
+                const newValue = current + Math.floor(Math.random() * 1000) - 500;
+                el.textContent = newValue.toLocaleString();
+            });
+        });
+        
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            // 模拟计算过程
+            const cards = document.querySelectorAll('.result-card');
+            cards.forEach(card => {
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = 'pulse 0.5s ease';
+                }, 10);
+            });
+            
+            // 更新结果
+            document.querySelectorAll('.result-value').forEach(el => {
+                const current = parseInt(el.textContent.replace(/,/g, ''));
+                const newValue = current + Math.floor(Math.random() * 500) - 200;
+                el.textContent = newValue.toLocaleString();
+            });
+        });
+        
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            .result-card {
+                transition: transform 0.3s ease;
+            }
+            
+            .result-card:hover {
+                transform: translateY(-5px);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+		<title>xwqin的网站</title>
+		<link rel="shortcut icon" href="/xgz.ico">
+		<link rel="stylesheet" href="/search.css">
+		<style type="text/css">
+			.top {
+				width: 100%;
+				aspect-ratio: 4/3;
+				background: no-repeat center/cover;
+				position: relative;
+			}
+			#title {
+				text-align: center;
+				margin: 0 0 20px 0;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+			}
+			#st {
+				text-align: center;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+			}
+			#saying {
+				position: absolute;
+				bottom: 40px;
+				left: 50px;
+				margin: 0;
+				font-size: 30px;
+				font-weight: bold;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+			}
+			#date {
+				position: absolute;
+				bottom: 80px;
+				left: 50px;
+				margin: 0;
+				font-size: 15px;
+				font-weight: bold;
+				text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+			}
+			a{
+				color: azure;
+			}
+		</style>
+	</head>
+	<body style="background-color: black; color: #fff; text-align: center;">
+		<div class="top">
+			<h1 id="title">xwqin的旅行游记</h1>
+			<p id="st">请在下方查询文章</p>
+			<p id="date"></p>
+			<p id="saying"></p>
+		</div>
+		<div class="search-container">
+			<div class="search-box">
+				<input type="text" id="search-input" placeholder="输入标题关键词...">
+				<button id="search-button">查询游记</button>
+			</div>
+			<div id="search-results" class="search-results" style="display: none;"></div>
+		</div>
+		<div class="keyword-container">
+			<p>常用标签（点击搜索）：</p>
+			<div class="keyword-box" data="青岛">青岛</div>
+			<div class="keyword-box" data="铁路">铁路</div>
+		</div>
+		<script>
+			function getChineseLongDate() {
+			  const date = new Date();
+			  return date.toLocaleDateString('zh-CN', {
+			    year: 'numeric',
+			    month: 'long',
+			    day: 'numeric',
+			    weekday: 'long'
+			  });
+			}
+			const sayings = [
+			  "铁轨咬住远方，站台吐露故事",
+			  "一站一城，一人一页",
+			  "快门里哐当哐当，车窗外交代人间",
+			  "追风赶月，脚步生焰",
+			  "山河落笔端，风雨成诗行",
+			  "巷陌藏春秋，步履量世界",
+			  "背包一甩，车站见",
+			  "隔壁车道总是动得快些",
+			  "刹车踩烂，纹丝不动",
+			  "车窗倒影里无数人生短暂重叠",
+			  "车门开合间，漏出半截人生",
+			  "坐布上烙着千百种体温",
+			  "首班碾碎星光，末班载满倦意",
+			  "投币箱吞下整个城市的晨昏"
+			];
+			const banner = document.querySelector('.top');
+			banner.style.backgroundImage = `url(/travels/topimg/${Math.floor(Math.random() * 10) + 1}.jpg)`;
+			document.getElementById('saying').textContent = sayings[Math.floor(Math.random()*sayings.length)];
+			document.getElementById('date').textContent = getChineseLongDate();
+			const searchData = [
+				{
+					title: "青岛铁路7日行·Day1：京青运转记【2025.8.3】",
+					url: "/travels/青岛铁路7日行/D1.html"
+				},
+				{
+					title: "青岛铁路7日行·Day2：初探青岛北站【2025.8.4】",
+					url: "/travels/青岛铁路7日行/D2.html"
+				},
+				{
+					title: "青岛铁路7日行·Day3：青岛最大火车站【2025.8.5】",
+					url: "/travels/青岛铁路7日行/D3.html"
+				},
+				{
+					title: "青岛铁路7日行·Day4：青岛北列车观测【2025.8.6】",
+					url: "/travels/青岛铁路7日行/D4.html"
+				},
+				{
+					title: "青岛铁路7日行·Day5：青岛西列车观测【2025.8.7】",
+					url: "/travels/青岛铁路7日行/D5.html"
+				},
+				{
+					title: "青岛铁路7日行·Day6：一日看尽青铁观【2025.8.8】",
+					url: "/travels/青岛铁路7日行/D7.html"
+				},
+				{
+					title: "青岛铁路7日行·Day7：济青智动大标杆【2025.8.9】",
+					url: "/travels/青岛铁路7日行/D7.html"
+				}
+			];
+			document.addEventListener('DOMContentLoaded', function() {
+					const searchInput = document.getElementById('search-input');
+					const searchButton = document.getElementById('search-button');
+					const searchResults = document.getElementById('search-results');
+					function performSearch() {
+						const searchTerm = searchInput.value.trim();
+						if (searchTerm === '') {
+							searchResults.style.display = 'none';
+							return;
+						}
+						const filteredResults = searchData.filter(item => item.title.includes(searchTerm));
+						displayResults(filteredResults, searchTerm);
+					}
+					function displayResults(results, keyword) {
+						searchResults.innerHTML = '';
+						if (results.length === 0) {
+							searchResults.innerHTML = '<div class="no-results">没有找到匹配的结果</div>';
+							searchResults.style.display = 'block';
+							return;
+						}
+						results.forEach(item => {
+							const resultItem = document.createElement('div');
+							resultItem.className = 'result-item';
+							const highlightedTitle = highlightKeyword(item.title, keyword);
+							resultItem.innerHTML = `
+								<a href="${item.url}" class="result-snippet">${highlightedTitle}</a>
+							`;
+							searchResults.appendChild(resultItem);
+						});
+						searchResults.style.display = 'block';
+						searchResults.scrollIntoView({ behavior: 'smooth' });
+					}
+					function highlightKeyword(text, keyword) {
+						if (!keyword) return text;
+						const regex = new RegExp(keyword, 'gi');
+						return text.replace(regex, match => `<span style="background-color: yellow;">${match}</span>`);
+					}
+					searchButton.addEventListener('click', performSearch);
+					searchInput.addEventListener('keypress', function(e) {
+						if (e.key === 'Enter') {
+							performSearch();
+						}
+					});
+					document.querySelectorAll('.keyword-box').forEach(tag => {
+						tag.addEventListener('click', function() {
+							const keyword = this.getAttribute('data');
+							searchInput.value = keyword;
+							performSearch();
+						});
+					});
+				});
+		</script>
+	</body>
+</html>
